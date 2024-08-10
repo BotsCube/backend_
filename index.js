@@ -79,7 +79,7 @@ app.get('/profile', async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-    res.json({id: 123});
+    res.json({id: 123, decode: decode});
   } catch (error) {
     console.error(error);
     res.status(500).send('Error fetching profile');
