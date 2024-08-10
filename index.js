@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+let data = {};
+
 const app = express();
 app.use(cookieParser());
 
@@ -53,7 +55,8 @@ app.get('/auth/discord/callback', async (req, res) => {
 
     const { id, username, discriminator, avatar } = userResponse.data;
 
-    const jwtToken = jwt.sign({ id: 123 }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    data[id] = { id, username, discriminator, avatar };
+    const jwtToken = jwt.sign({ id:  }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
