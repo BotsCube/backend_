@@ -53,7 +53,7 @@ app.get('/auth/discord/callback', async (req, res) => {
 
     const { id, username, discriminator, avatar } = userResponse.data;
 
-    const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const jwtToken = jwt.sign({ id: 123 }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
