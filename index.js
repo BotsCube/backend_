@@ -56,7 +56,7 @@ app.get('/auth/discord/callback', async (req, res) => {
     const { id, username, discriminator, avatar } = userResponse.data;
 
     data[id] = { id, username, discriminator, avatar };
-    const jwtToken = jwt.sign({ id:  }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
@@ -81,8 +81,8 @@ app.get('/profile', async (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-    res.json({id: 123, decode: decode});
+
+    res.json({id: 123, decode: decoded});
   } catch (error) {
     console.error(error);
     res.status(500).send('Error fetching profile');
