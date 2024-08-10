@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 // Enable CORS with credentials
 app.use(cors({
-  origin: 'https://nextjs-discord-auth.vercel.app',  // Frontend origin
+  origin: 'https://botcube-discord-auth.vercel.app',  // Frontend origin
   credentials: true,                 // Allow cookies to be sent
 }));
 
