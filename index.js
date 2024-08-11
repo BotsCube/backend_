@@ -10,10 +10,10 @@ const app = express();
 app.use(cookieParser());
 
 // Enable CORS with credentials
-app.use(cors({
+/*app.use(cors({
   origin: 'https://botcube-discord-auth.vercel.app',  // Frontend origin
   credentials: true,                 // Allow cookies to be sent
-}));
+}));*/
 
 // Redirect user to Discord for authentication
 app.get('/auth/discord', (req, res) => {
