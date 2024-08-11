@@ -57,9 +57,10 @@ app.get('/auth/discord/callback', async (req, res) => {
 
     data[id] = { id, username, discriminator, avatar };
     const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+    console.log(jwtToken);
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,         // Ensure this is only true if using HTTPS
       sameSite: 'None',     // Cross-site cookie setting
