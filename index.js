@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 // Enable CORS with credentials
 app.use(cors({
-  origin: "*", //'https://botcube-discord-auth.vercel.app',  // Frontend origin
+  origin: 'https://botcube-discord-auth.vercel.app',  // Frontend origin
   credentials: true,                 // Allow cookies to be sent
 }));
 
@@ -60,11 +60,11 @@ app.get('/auth/discord/callback', async (req, res) => {
     console.log(jwtToken);
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
-    //  domain: 'botcube-discord-auth.vercel.app',
+      domain: 'botcube-discord-auth.vercel.app',
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,         // Ensure this is only true if using HTTPS
-      sameSite: 'None'
+      sameSite: 'Strict'
     });
 
     res.redirect(redirectUri); // Redirect back to the original page
