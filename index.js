@@ -101,22 +101,26 @@ app.get('/profile', authenticateUser, async (req, res) => {
 //api to fet details of a bot
 app.get('/get/bot/details', authenticateUser, async (req, res) => {
   try {
-  if(!req || !req.query || !req.query.appId || req.query.appId.trim() === ""){
-    return res.json({ success: false, appIdProvided: false, error_message: "Application Id is not provided" });
+    if (!req || !req.query || !req.query.appId || req.query.appId.trim() === "") {
+      return res.json({ success: false, appIdProvided: false, error_message: "Application Id is not provided" });
+    }
+
+    let appId = req.query.appId;
+
+    try {
+      let botData = await axios.get(`https://discord.com/api/v10/applications/${appId}/rpc`);
+      res.json(botData.data);
+    } catch (err) {
+      console.log(err);
+      res.json({ success: false, error_message: "Error while fetching Bot" });
+    }
+
+  } catch (er) {
+    console.log(er);
+    res.json({ success: false, error_message: "Something went wrong" });
   }
-  try {
-  let appId = req.query.appId;
-  let botData = axios.get(`https://discord.com/api/v10/applications/${appId}/rpc`);
-    res.json(botData.body);
-  } catch (err) {
-    console.log(err);
-    res.json({ success: false, error_message: "Error while Fetcing Bot"});
-  }
-}catch (er) {
-        console.log(er);
-res.json({ success: false, error_message: "Somthing Went Wrong"});
-}
 });
+
 
 // Start the server
 app.listen(5000, () => {
