@@ -98,6 +98,26 @@ app.get('/profile', authenticateUser, async (req, res) => {
   res.json(req.user);
 });
 
+//api to fet details of a bot
+app.get('/get/bot/details', authenticateUser, async (req, res) => {
+  try {
+  if(!req || !req.query || !req.query.appId || req.query.appId.trim() === ""){
+    return res.json({ success: false, appIdProvided: false, error_message: "Application Id is not provided" });
+  }
+  try {
+  let appId = req.query.appId;
+  let botData = axios.get(`https://discord.com/api/v10/applications/${appId}/rpc`);
+    res.json(botData.body);
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, error_message: "Error while Fetcing Bot"});
+  }
+}catch (er) {
+        console.log(er);
+res.json({ success: false, error_message: "Somthing Went Wrong"});
+}
+});
+
 // Start the server
 app.listen(5000, () => {
   console.log('Server running on http://localhost:5000');
