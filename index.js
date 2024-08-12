@@ -83,7 +83,7 @@ app.get('/auth/discord/callback', async (req, res) => {
     res.cookie('token', jwtToken, {
    //   domain: 'botcube-discord-auth.vercel.app',
    //   maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
+      httpOnly: false,
       secure: true,         // Ensure this is only true if using HTTPS
       sameSite: 'None'
     });
