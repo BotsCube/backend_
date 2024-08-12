@@ -77,13 +77,11 @@ app.get('/auth/discord/callback', async (req, res) => {
     const { id, username, discriminator, avatar } = userResponse.data;
 
     data[id] = { id, username, discriminator, avatar };
-    const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1m' });
-    console.log(jwtToken);
-    // Set the cookie with appropriate flags for cross-domain
+    const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
     res.cookie('token', jwtToken, {
-   //   domain: 'botcube-discord-auth.vercel.app',
-   //   maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: false,
+      domain: 'botcube-discord-auth.vercel.app',
+      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
       secure: true,         // Ensure this is only true if using HTTPS
       sameSite: 'None'
     });
@@ -96,22 +94,8 @@ app.get('/auth/discord/callback', async (req, res) => {
 });
 
 // Protected route to get user profile
-app.get('/profile', async (req, res) => {
-  try {
-    const token = req.cookies.token;
-    if (!token) {
-      return res.status(401).send('Not authenticated');
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if(!data[decoded.id]){
-      return res.status(401).send('Not authenticated');
-    }
-    res.json(data[decoded.id]);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error fetching profile');
-  }
+app.get('/profile', authenticateUser, async (req, res) => {
+  res.json(req.user);
 });
 
 // Start the server
