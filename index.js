@@ -83,7 +83,7 @@ app.get('/auth/discord/callback', async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,         // Ensure this is only true if using HTTPS
-      sameSite: 'None'
+      sameSite: 'Strict'
     });
 
     res.redirect(redirectUri); // Redirect back to the original page
