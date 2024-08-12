@@ -81,8 +81,8 @@ app.get('/auth/discord/callback', async (req, res) => {
     console.log(jwtToken);
     // Set the cookie with appropriate flags for cross-domain
     res.cookie('token', jwtToken, {
-      domain: 'botcube-discord-auth.vercel.app',
-      maxAge: 30 * 24 * 60 * 60 * 1000,
+   //   domain: 'botcube-discord-auth.vercel.app',
+   //   maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,         // Ensure this is only true if using HTTPS
       sameSite: 'None'
