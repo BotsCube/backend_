@@ -4,8 +4,31 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-let data = {};
+var data = {};
 
+const jwt = require('jsonwebtoken');
+
+const authenticateUser = (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).send('Not authenticated');
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!data[decoded.id]) {
+      return res.status(401).send('Not authenticated');
+    }
+
+    req.user = data[decoded.id];
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, });
+  }
+};
+
+global.authenticateUser = authenticateUser;
 const app = express();
 app.use(cookieParser());
 
