@@ -73,7 +73,7 @@ app.get('/auth/discord/callback', async (req, res) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
+    console.log(userResponse.data);
     const { id, username, discriminator, avatar } = userResponse.data;
 
     data[id] = { id, username, discriminator, avatar };
