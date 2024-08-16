@@ -27,6 +27,7 @@ const authenticateUser = (req, res, next) => {
 };
 
 global.authenticateUser = authenticateUser;
+
 const app = express();
 app.use(cookieParser());
 
@@ -35,6 +36,9 @@ app.use(cors({
   origin: 'https://botcube-discord-auth.vercel.app',  // Frontend origin
   credentials: true,                 // Allow cookies to be sent
 }));
+
+// setup external routes
+app.use('/user', require('./routes/user.js'));
 
 // Redirect user to Discord for authentication
 app.get('/auth/discord', (req, res) => {
