@@ -1,12 +1,15 @@
 let express = require('express');
 let router = express.Router();
 
+let userData = [
+  {
+    name: "Test User",
+    username: "user.test",
+    id: 1010
+  }
+  ];
 router.get('/:id', async(req, res) => {
-  let term = req.params.id;
-  console.log(term);
-  console.log(typeof term);
-
-  res.send(term + '||' + typeof term)
+  let userId = req.params.id;
 })
 
 module.exports = router;
