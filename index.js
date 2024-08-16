@@ -76,7 +76,7 @@ app.get('/auth/discord/callback', async (req, res) => {
     console.log(userResponse.data);
     const { id, username, discriminator, avatar } = userResponse.data;
 
-    data[id] = { id, username, discriminator, avatar };
+    data[id] = { id, username, discriminator, avatar, accessTkn: accessToken };
     const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
     res.cookie('token', jwtToken, {
      // domain: 'botcube-discord-auth.vercel.app',
