@@ -38,7 +38,7 @@ app.use(cors({
 }));
 
 // setup external routes
-app.use('/user', require('./routes/user.js'));
+app.use('/user', require('./routes/user'));
 
 // Redirect user to Discord for authentication
 app.get('/auth/discord', (req, res) => {
