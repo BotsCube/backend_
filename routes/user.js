@@ -20,7 +20,7 @@ router.get('/:id', async(req, res) => {
       });
     }
     let userDetails = userData.filter(i => i.id === Number(userId));
-    if(!userDetails || typeof userDetails !== array || userDetails.length < 1){
+    if(!userDetails || typeof userDetails !== "array" || userDetails.length < 1){
       return res.json({
         success: false,
         type: "account not found",
