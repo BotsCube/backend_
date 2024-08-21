@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 // Enable CORS with credentials
 app.use(cors({
-  origin: 'https://bot-list-app-demo.vercel.app'//'https://botcube-discord-auth.vercel.app',  // Frontend origin
+  origin: 'https://bot-list-app-demo.vercel.app', //'https://botcube-discord-auth.vercel.app',  // Frontend origin
   credentials: true,                 // Allow cookies to be sent
 }));
 
