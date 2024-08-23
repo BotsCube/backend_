@@ -2,6 +2,7 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 let router = require('express').Router();
 
+var data = {};
 
 // Redirect user to Discord for authentication
 router.get('/discord', (req, res) => {
