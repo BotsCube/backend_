@@ -126,7 +126,7 @@ app.get('/get/bot/details', authenticateUser, async (req, res) => {
 });
 
 
-app.get('/user/@me', async(req, res) => {
+app.get('/dummy/user/@me', async(req, res) => {
   res.json({
     success: true,
     authorised: true,
