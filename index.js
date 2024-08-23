@@ -134,7 +134,7 @@ app.get('/user/@me', async(req, res) => {
       id: 1010101010,
       name: "test uesr",
       email: "test@email.tdl",
-      avatar: "",
+      avatar: "https://i.pravatar.cc/",
     }
   });
 });
