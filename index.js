@@ -126,6 +126,19 @@ app.get('/get/bot/details', authenticateUser, async (req, res) => {
 });
 
 
+app.get('/user/@me', async(req, res) => {
+  res.json({
+    success: true,
+    authorised: true,
+    user: {
+      id: 1010101010,
+      name: "test uesr",
+      email: "test@email.tdl",
+      avatar: "",
+    }
+  });
+});
+
 // Start the server
 app.listen(5000, () => {
   console.log('Server running on http://localhost:5000');
