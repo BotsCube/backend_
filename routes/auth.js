@@ -8,10 +8,8 @@ router.get('/discord', (req, res) => {
     res.redirect(discordAuthUrl);
 });
 
-
-
 // Handle Discord OAuth callback
-router.get('/auth/discord/callback', async (req, res) => {
+router.get('/discord/callback', async (req, res) => {
     const code = req.query.code;
     const redirectUri = decodeURIComponent(req.query.state); // Original page to redirect to after login
   
