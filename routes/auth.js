@@ -2,7 +2,7 @@ let router = require('express').Router();
 
 
 // Redirect user to Discord for authentication
-app.get('/discord', (req, res) => {
+router.get('/discord', (req, res) => {
     const redirectUri = req.query.redirect || 'https://botcube.vercel.app'; // Default to homepage if no redirect URI is provided
     const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${process.env.DISCORD_REDIRECT_URI}&response_type=code&scope=identify&state=${encodeURIComponent(redirectUri)}`;
     res.redirect(discordAuthUrl);
@@ -11,7 +11,7 @@ app.get('/discord', (req, res) => {
 
 
 // Handle Discord OAuth callback
-app.get('/auth/discord/callback', async (req, res) => {
+router.get('/auth/discord/callback', async (req, res) => {
     const code = req.query.code;
     const redirectUri = decodeURIComponent(req.query.state); // Original page to redirect to after login
   
