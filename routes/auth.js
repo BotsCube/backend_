@@ -2,8 +2,6 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 let router = require('express').Router();
 
-var data = {};
-
 // Redirect user to Discord for authentication
 router.get('/discord', (req, res) => {
     const redirectUri = req.query.redirect || 'https://botcube.vercel.app'; // Default to homepage if no redirect URI is provided
