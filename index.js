@@ -1,8 +1,9 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
+(async() => {
+  const express = require('express');
+  const cookieParser = require('cookie-parser');
 
-var connectMdb = require("./DB/Mongo/connect.js");
-var mdbConnected = await connectMdb();
+  var connectMdb = require("./DB/Mongo/connect.js");
+  var mdbConnected = await connectMdb();
 
 var mdb = await require("./DB/Mongo/db.js");
 global.mdb = mdb;
@@ -23,3 +24,5 @@ setupRoutes(app);
 app.listen(5000, () => {
   console.log('Server running on .');
 });
+
+})();
