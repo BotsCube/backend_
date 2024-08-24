@@ -3,16 +3,18 @@ const jwt = require('jsonwebtoken');
 const authenticateUser = async(req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log(token);
         if (!token) {
             return res.json({ success: false, authenticated: false, error_message: `Not authenticated!` });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if (!(await mdb.get(`user_data_${decoded.id}`))) {
+        let dataFromDb = await mdb.get(`user_data_${decoded.id}`);
+        if (!dataFromDb) {
             return res.json({ success: false, authenticated: false, error_message: `Not authenticated!` });
         }
 
-        req.user = await mdb.get(`user_data_${decoded.id}`);
+        req.user = dataFromDb;
         next();
     } catch (error) {
         console.error(error);
@@ -20,4 +22,4 @@ const authenticateUser = async(req, res, next) => {
     }
 };
 
-globalThis.authenticateUser = authenticateUser;
+global.authenticateUser = authenticateUser;
