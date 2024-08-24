@@ -21,7 +21,7 @@
   objScma.index({ arrayValue: 1 }, { unique: true });
 
   var rawMngoDB = {
-    test: model("host", scma),
+    test: model("kval", scma),
     objModel: model("objCol", objScma),
   };
 

@@ -1,6 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
+var connectMdb = require("./DB/Mongo/connect.js");
+var mdbConnected = await connectMdb();
+
+var mdb = await require("./DB/Mongo/db.js");
+global.mdb = mdb;
+
 let enableCors = require('./corsSetup/index');
 let setupRoutes = require('./setupRoutes');
 
