@@ -42,7 +42,7 @@ router.get('/discord/callback', async (req, res) => {
       console.log(userResponse.data);
       const { id, username, discriminator, avatar } = userResponse.data;
   
-      data[id] = { id, username, discriminator, avatar, accessTkn: accessToken };
+      let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken };
       const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.cookie('token', jwtToken, {
        // domain: 'botcube-discord-auth.vercel.app',
@@ -51,6 +51,7 @@ router.get('/discord/callback', async (req, res) => {
         secure: true,         // Ensure this is only true if using HTTPS
         sameSite: 'None'
       });
+      await mdb.set(`user_data_${id}`, user_Data);
   
       res.redirect(redirectUri); // Redirect back to the original page
     } catch (error) {

@@ -8,11 +8,11 @@ const authenticateUser = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if (!data[decoded.id]) {
+        if (!(await mdb.get(`user_data_${decoded.id}`))) {
             return res.json({ success: false, authenticated: false, error_message: `Not authenticated!` });
         }
 
-        req.user = data[decoded.id];
+        req.user = await mdb.get(`user_data_${decoded.id}`);
         next();
     } catch (error) {
         console.error(error);
