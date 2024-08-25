@@ -49,7 +49,7 @@ router.get('/discord/callback', async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: true,         // Ensure this is only true if using HTTPS
-        sameSite: 'None'
+        sameSite: 'Lax'
       });
       await mdb.set(`user_data_${id}`, user_Data);
   
