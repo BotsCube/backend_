@@ -20,11 +20,11 @@ router.get('/@me', authenticateUser, async (req, res) => {
 });
 
 router.get('/join', authenticateUser, async(req, res) => {
-  let { accessTkn } = req.user;
+  let { accessTkn, id } = req.user;
   let nnnaccessToken = accessTkn;
   
     try {
-      let activityResponse = await axios.put(`https://discord.com/api/v10/guilds/1273219139137437706/members/${userId}`, {
+      let activityResponse = await axios.put(`https://discord.com/api/v10/guilds/1273219139137437706/members/${id}`, {
         access_token: nnnaccessToken
     }, {
         headers: {
