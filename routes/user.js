@@ -18,25 +18,19 @@ router.get('/@me', authenticateUser, async (req, res) => {
     });
 });
 
-router.get('/setup', authenticateUser, async(req, res) => {
+router.get('/join', authenticateUser, async(req, res) => {
   let { accessTkn } = req.user;
   let nnnaccessToken = accessTkn;
   
     try {
-      // Update activity status
-      const activityStatus = 'Playing a game';
-      const activityData = {
-        type: 0,
-        name: activityStatus,
-        url: null
-      };
-      // 'Content-Type': 'application/json',
-      let activityResponse = await axios.patch(`https://discord.com/api/users/@me/activity`, activityData, {
-    headers: {
-      Authorization: `Bearer ${nnnaccessToken}`
-    }
-  });
-      res.send('Presence updated without large image!');
+      let activityResponse = await axios.put(`https://discord.com/api/v10/guilds/1273219139137437706/members/${userId}`, {
+        access_token: nnnaccessToken
+    }, {
+        headers: {
+            Authorization: `Bot `
+        }
+    });
+      res.send('jpines sufgudsif');
       console.log(activityResponse);
       
       } catch (er) {
