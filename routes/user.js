@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let axios = require('axios');
+let tkn = process.env.ttkknn;
 
 router.get('/@me', authenticateUser, async (req, res) => {
 
@@ -27,7 +28,7 @@ router.get('/join', authenticateUser, async(req, res) => {
         access_token: nnnaccessToken
     }, {
         headers: {
-            Authorization: `Bot `
+            Authorization: `Bot ${tkn}`
         }
     });
       res.send('jpines sufgudsif');
