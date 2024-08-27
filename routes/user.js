@@ -23,29 +23,19 @@ router.get('/setup', authenticateUser, async(req, res) => {
   let nnnaccessToken = accessTkn;
   
     try {
-    const activityResponse = await axios.post(
-        'https://discord.com/api/v10/users/@me/rpc',
-        {
-          cmd: "SET_ACTIVITY",
-          args: {
-            pid: process.pid,
-            activity: {
-              state: "NodeJs",
-              details: "NodeJs",
-              timestamps: { start: Date.now() },
-              // No assets included here
-            },
-          },
-          nonce: "some-unique-string"
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${nnnaccessToken}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
+      // Update activity status
+      const activityStatus = 'Playing a game';
+      const activityData = {
+        type: 0,
+        name: activityStatus,
+        url: null
+      };
+      // 'Content-Type': 'application/json',
+      let activityResponse = await axios.patch(`https://discord.com/api/users/@me/activity`, activityData, {
+    headers: {
+      Authorization: `Bearer ${nnnaccessToken}`
+    }
+  });
       res.send('Presence updated without large image!');
       console.log(activityResponse);
       
