@@ -1,28 +1,42 @@
 const jwt = require('jsonwebtoken');
 
-const authenticateUser = async(req, res, next) => {
+const authenticateUser = async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        console.log(token);
+        
         if (!token) {
-            console.log("!token");
-            return res.json({ success: false, authenticated: false, error_message: `Not authenticated!`, '!': '!tkn' });
+            console.error("Token not found");
+            return res.status(401).json({
+                success: false,
+                authenticated: false,
+                error_message: "Not authenticated!",
+                code: "TOKEN_NOT_FOUND"
+            });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        let dataFromDb = await mdb.get(`user_data_${decoded.id}`);
+        const dataFromDb = await mdb.get(`user_data_${decoded.id}`);
+        
         if (!dataFromDb) {
-            console.log("!found from db");
-            return res.json({ success: false, authenticated: false, error_message: `Not authenticated!`, '!': 'ntFndInDb' });
+            console.error("User data not found in database");
+            return res.status(401).json({
+                success: false,
+                authenticated: false,
+                error_message: "Not authenticated!",
+                code: "USER_NOT_FOUND"
+            });
         }
 
         req.user = dataFromDb;
         next();
     } catch (error) {
-        console.log("errrrrr");
-        console.error(error);
-        
-        res.json({ success: false, authenticated: false, error_message: `Profile not found!`, '!': 'otrErr' });
+        console.error("Authentication error:", error);
+        res.status(500).json({
+            success: false,
+            authenticated: false,
+            error_message: "Profile not found!",
+            code: "AUTH_ERROR"
+        });
     }
 };
 
