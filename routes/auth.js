@@ -45,11 +45,11 @@ router.get('/discord/callback', async (req, res) => {
       let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken };
       const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.cookie('token', jwtToken, {
-       // domain: 'botcube-discord-auth.vercel.app',
+        domain: 'botcube-discord-auth.vercel.app',
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: true,         // Ensure this is only true if using HTTPS
-        sameSite: 'Lax'
+        sameSite: 'None'
       });
       await mdb.set(`user_data_${id}`, user_Data);
   
