@@ -45,7 +45,7 @@ router.get('/discord/callback', async (req, res) => {
       let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken };
       const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.cookie('token', jwtToken, {
-        domain: 'bot-list-app-demo.vercel.app',
+        //domain: 'bot-list-app-demo.vercel.app',
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: true,         // Ensure this is only true if using HTTPS
