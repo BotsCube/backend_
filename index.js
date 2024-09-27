@@ -26,6 +26,7 @@
   });
 
   app.get('/logout', (req, res) => {
+    res.clearCookie();
     res.send(true);
   });
 })();
