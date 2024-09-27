@@ -26,7 +26,10 @@
   });
 
   app.get('/logout', (req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('token',  {
+    sameSite: 'None',
+    secure: true,
+  });
     res.send(true);
   });
 })();
