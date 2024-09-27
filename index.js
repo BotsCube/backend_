@@ -26,7 +26,7 @@
   });
 
   app.get('/logout', (req, res) => {
-    res.clearCookie();
+    res.clearCookie('token');
     res.send(true);
   });
 })();
