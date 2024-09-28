@@ -53,10 +53,17 @@ router.get('/discord/callback', async (req, res) => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      const userGuildResponse = await axios.get('https://discord.com/api/users/@me/guilds', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      
+      
       console.log(userResponse.data);
       const { id, username, discriminator, avatar } = userResponse.data;
   
-      let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken };
+      let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken, guilds: userGuildResponse };
       const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.cookie('token', jwtToken, {
         //domain: 'bot-list-app-demo.vercel.app',
