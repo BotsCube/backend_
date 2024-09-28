@@ -9,11 +9,24 @@ router.get('/discord', (req, res) => {
     res.redirect(discordAuthUrl);
 });
 
+
 // Handle Discord OAuth callback
 router.get('/discord/callback', async (req, res) => {
+    const redirectUri = decodeURIComponent(req.query.state);
   console.log(req.query);
+  if (req?.query?.error) {
+    let titleMsg = "Error {}";
+    let descriptionMsg = "Somthing Went Wrong! Our Developers will fix it soon.";
+    
+    if(req.query.error == "access_denied") {
+      titleMsg = "Access Denied";
+      descriptionMsg = "Authontication Was Cancled, Please Try Again!";
+    }
+    
+    const hostname = redirectUri.split('//')[1].split('/')[0];
+    return res.redirect(`https://${hostname}/login-error?title=${titleMsg}&description=${descriptionMsg}}`)
+  }
     const code = req.query.code;
-    const redirectUri = decodeURIComponent(req.query.state); // Original page to redirect to after login
   
     try {
       const tokenResponse = await axios.post(
