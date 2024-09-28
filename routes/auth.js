@@ -7,7 +7,7 @@ let scopes = "identify email guilds";
 // Redirect user to Discord for authentication
 router.get('/discord', (req, res) => {
     const redirectUri = req.query.redirect || 'https://botcube.vercel.app'; // Default to homepage if no redirect URI is provided
-    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${process.env.DISCORD_REDIRECT_URI}&response_type=code&scope=${encodeURIComponent(scopes)}&state=${encodeURIComponent(redirectUri)}`;
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${process.env.DISCORD_REDIRECT_URI}&response_type=code&scope=${encodeURIComponent(scopes).replace(/%20/g, "+")}&state=${encodeURIComponent(redirectUri)}`;
     res.redirect(discordAuthUrl);
 });
 
