@@ -5,7 +5,7 @@ let tkn = process.env.ttkknn;
 
 router.get('/@me', authenticateUser, async (req, res) => {
 
-    let { id, username, discriminator, avatar, accessTkn } = req.user;
+    let { id, username, discriminator, avatar, accessTkn, guilds } = req.user;
 
     res.json({
         success: true,
@@ -15,7 +15,8 @@ router.get('/@me', authenticateUser, async (req, res) => {
             username,
             discriminator,
             avatar
-        }
+        },
+        guilds
     });
 });
 

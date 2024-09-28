@@ -61,6 +61,7 @@ router.get('/discord/callback', async (req, res) => {
       
       
       console.log(userResponse.data);
+      console.log(userGuildResponse.data);
       const { id, username, discriminator, avatar } = userResponse.data;
   
       let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken, guilds: userGuildResponse.data };
