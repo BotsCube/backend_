@@ -63,7 +63,7 @@ router.get('/discord/callback', async (req, res) => {
       console.log(userResponse.data);
       const { id, username, discriminator, avatar } = userResponse.data;
   
-      let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken, guilds: userGuildResponse };
+      let user_Data = { id, username, discriminator, avatar, accessTkn: accessToken, guilds: userGuildResponse.data };
       const jwtToken = jwt.sign({ id: id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.cookie('token', jwtToken, {
         //domain: 'bot-list-app-demo.vercel.app',
